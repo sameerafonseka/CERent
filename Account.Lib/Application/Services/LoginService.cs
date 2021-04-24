@@ -59,11 +59,11 @@ namespace CERent.Account.Lib.Application.Services
             return loginResult;
         }
 
-        public async Task<AuthenticateResult> Authenticate(AuthenticateQuery authenticateQuery)
+        public async Task<UserAuthenticateResult> Authenticate(AuthenticateQuery authenticateQuery)
         {
             var user = await _userService.GetUser(authenticateQuery.Email);
 
-            var authenticateResult = new AuthenticateResult
+            var authenticateResult = new UserAuthenticateResult
             {
                 Email = user.Email,
                 FirstName = user.FirstName,

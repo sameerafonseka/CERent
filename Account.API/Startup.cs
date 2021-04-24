@@ -1,4 +1,5 @@
 using CERent.Account.API.Helpers;
+using CERent.Account.Lib.Application.Models;
 using CERent.Core.Lib.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,8 +35,26 @@ namespace Account.API
 
             services.Configure<JwtSetting>(options => Configuration.GetSection("JwtSetting").Bind(options));
 
+            services.AddTransient<UserAuthenticateResult>(provider =>
+            {
+                var accessor = provider.GetRequiredService<IHttpContextAccessor>();
+                UserAuthenticateResult user = accessor.HttpContext.Items["User"] as UserAuthenticateResult;
 
-      
+                if (user == null)
+                {
+                    if (accessor.HttpContext.Request.Headers.ContainsKey("Authorization"))
+                    {
+                        string token = accessor.HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer", "").Trim();
+                        return new UserAuthenticateResult ();
+                    }
+
+                    return new UserAuthenticateResult();
+                }
+
+                //var loginTokenInfo = JsonConvert.DeserializeObject<LoginTokenInfo>(loginTokenClaim.Value);
+                return user;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

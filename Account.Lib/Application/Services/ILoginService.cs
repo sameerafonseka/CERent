@@ -6,6 +6,6 @@ namespace CERent.Account.Lib.Application.Services
     public interface ILoginService
     {
         Task<LoginResult> Login(LoginQuery loginQuery);
-        Task<AuthenticateResult> Authenticate(AuthenticateQuery authenticateQuery);
+        Task<UserAuthenticateResult> Authenticate(AuthenticateQuery authenticateQuery);
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CERent.Account.Lib.Application.Models
 {
-    public class AuthenticateResult
+    public class UserAuthenticateResult
     {
         public int UserId { get; set; }
 

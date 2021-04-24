@@ -27,7 +27,7 @@ namespace CERent.Account.API.Helpers
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (AuthenticateResult)context.HttpContext.Items["User"];
+            var user = (UserAuthenticateResult)context.HttpContext.Items["User"];
 
             if (user == null)
             {
