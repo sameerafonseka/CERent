@@ -6,6 +6,8 @@ using CERent.Core.Lib.Settings;
 using CERent.Core.Lib.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -33,12 +35,18 @@ namespace CERent.Account.API.Helpers
             //Other
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddTransient<IEncryptionUtil, EncryptionUtil>();
-
+            services.TryAddTransient<ICacheProvider, CacheProvider>();
+            
+            services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetSection("Redis")["ConnectionString"];
+            });
 
             services.AddTransient<UserAuthenticateResult>(provider =>
             {
                 var accessor = provider.GetRequiredService<IHttpContextAccessor>();
-                UserAuthenticateResult user = accessor.HttpContext.Items["User"] as UserAuthenticateResult;
+                var user = accessor.HttpContext.Items["User"] as UserAuthenticateResult;
 
                 if (user == null)
                 {
