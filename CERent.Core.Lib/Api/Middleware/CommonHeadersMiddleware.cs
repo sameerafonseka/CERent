@@ -28,6 +28,7 @@ namespace CERent.Core.Lib.Api.Middleware
 
                 logger.LogInformation($"Setting correlationId:{correlationId}");
                 context.Items["CorrelationId"] = correlationId;
+                context.Response.Headers["CorrelationId"] = correlationId;
             }
 
             await next(context);

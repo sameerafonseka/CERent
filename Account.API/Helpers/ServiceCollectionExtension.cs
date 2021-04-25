@@ -64,8 +64,11 @@ namespace CERent.Account.API.Helpers
 
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
+           //services.AddDbContext<AccountDbContext>(
+           //     options => options.UseSqlServer(configuration.GetConnectionString("ECRent_Account")));
+
             services.AddDbContext<AccountDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("ECRent_Account")));
+                options => options.UseInMemoryDatabase(databaseName: "AccountDbContext"));
         }
 
 

@@ -88,6 +88,7 @@ namespace Account.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<LoggingMiddleware>();
             app.UseMiddleware<CommonHeadersMiddleware>();
 

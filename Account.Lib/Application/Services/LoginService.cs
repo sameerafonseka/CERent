@@ -46,7 +46,7 @@ namespace CERent.Account.Lib.Application.Services
                 {
                     Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                     {
-                        new Claim(ClaimTypes.Name, user.Email)
+                        new Claim("Email", user.Email)
                     }),
                     Expires = DateTime.UtcNow.AddHours(4),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

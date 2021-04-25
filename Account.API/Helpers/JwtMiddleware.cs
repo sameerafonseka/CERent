@@ -18,55 +18,52 @@ namespace CERent.Account.API.Helpers
     {
         private readonly RequestDelegate _next;
         private readonly JwtSetting _jwtSetting;
-        private readonly ILoginService _loginService;
-        
 
-        public JwtMiddleware(RequestDelegate next, 
-            IOptions<JwtSetting> jwtSetting,
-            ILoginService loginService
+        public JwtMiddleware(RequestDelegate next,
+            IOptions<JwtSetting> jwtSetting
             )
         {
             _next = next;
             _jwtSetting = jwtSetting?.Value;
-            _loginService = loginService;
         }
 
-        public async Task Invoke(HttpContext context)
-        {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
-            if (token != null)
-                AuthenticateAndAttachToContent(context, token);
-
-            await _next(context);
-        }
-
-        private void AuthenticateAndAttachToContent(HttpContext context, string token)
+        public async Task Invoke(HttpContext context, ILoginService _loginService)
         {
             try
             {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_jwtSetting.SecretKey);
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+
+                if (token != null)
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var key = Encoding.ASCII.GetBytes(_jwtSetting.SecretKey);
 
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                var email = jwtToken.Claims.First(x => x.Type == ClaimTypes.Name).Value;
+                    tokenHandler.ValidateToken(token, new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                        ClockSkew = TimeSpan.Zero
+                    }, out SecurityToken validatedToken);
 
-                // attach user to context on successful jwt validation
-                context.Items["User"] = _loginService.Authenticate(new AuthenticateQuery { Email = email });
+                    var jwtToken = (JwtSecurityToken) validatedToken;
+                    var email = jwtToken.Claims.FirstOrDefault(x => x.Type == "Email")?.Value;
+
+                    if (!String.IsNullOrWhiteSpace(email))
+                    {
+                        context.Items["User"] = await _loginService.Authenticate(new AuthenticateQuery { Email = email });
+                    }
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                // do nothing if jwt validation fails
-                // user is not attached to context so request won't have access to secure routes
+                throw ex;
+            }
+            finally
+            {
+                await _next(context);
             }
         }
     }

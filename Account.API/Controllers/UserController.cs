@@ -1,4 +1,5 @@
-﻿using CERent.Account.Lib.Application.Models;
+﻿using CERent.Account.API.Helpers;
+using CERent.Account.Lib.Application.Models;
 using CERent.Account.Lib.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,15 +12,12 @@ using System.Threading.Tasks;
 
 namespace CERent.Account.API.Controllers
 {
-    //[Route("api/[controller]")]
-    //[ApiController]
-    //[Authorize]
-
     //[Route("api/[controller]/[action]")]
     [ApiController]
     //[ApiExplorerSettings(IgnoreApi = false, GroupName = nameof(EmailController))]
     [ApiVersion("1")]
     [Route("/api/v{version:apiVersion}/[controller]")]
+    [CustomAuthorization]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger = null;
@@ -33,8 +31,8 @@ namespace CERent.Account.API.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [Route("Login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginQuery loginQuery)
         {
             try
@@ -43,6 +41,22 @@ namespace CERent.Account.API.Controllers
                 return Ok(result);
             }
             catch(Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("Buy")]
+        [CustomAuthorization(UserType.Buyer)]
+        public async Task<IActionResult> Buy()
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);

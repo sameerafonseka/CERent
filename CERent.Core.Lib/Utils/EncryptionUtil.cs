@@ -8,12 +8,12 @@ namespace CERent.Core.Lib.Utils
     {
         public string Decrypt(string ciperText)
         {
-            throw new NotImplementedException();
+            return ciperText;
         }
 
         public string Encrypt(string plainText)
         {
-            throw new NotImplementedException();
+            return plainText;
         }
     }
 }
