@@ -11,9 +11,15 @@ using System.Threading.Tasks;
 
 namespace CERent.Account.API.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    //[ApiController]
+    //[Authorize]
+
+    //[Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+    //[ApiExplorerSettings(IgnoreApi = false, GroupName = nameof(EmailController))]
+    [ApiVersion("1")]
+    [Route("/api/v{version:apiVersion}/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger = null;
@@ -26,7 +32,9 @@ namespace CERent.Account.API.Controllers
             _loginService = loginService;
         }
 
+        [HttpPost]
         [AllowAnonymous]
+        [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginQuery loginQuery)
         {
             try
