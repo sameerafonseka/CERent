@@ -4,6 +4,7 @@ using CERent.Account.Lib.Domain;
 using CERent.Core.Lib.Api;
 using CERent.Core.Lib.Api.Middleware;
 using CERent.Core.Lib.Settings;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -47,37 +48,7 @@ namespace Account.API
 
             services.ConfigureDbContext(Configuration);
 
-            
-
-
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Application API", Version = "v1" });
-
-            //    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            //    {
-            //        In = ParameterLocation.Header,
-            //        Description = "Please insert JWT with Bearer into field",
-            //        Name = "Authorization",
-            //        Type = SecuritySchemeType.ApiKey
-            //    });
-
-            //    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-
-            //    //c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-            //    //{
-            //    //    new OpenApiSecurityScheme
-            //    //    {
-            //    //        Reference = new OpenApiReference
-            //    //        {
-            //    //            Type = ReferenceType.SecurityScheme,
-            //    //            Id = "Bearer"
-            //    //        }
-            //    //    },
-            //    //    new string[] { }
-            //    //}});
-            //});
-
+            services.ConfigureRabbitMq(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

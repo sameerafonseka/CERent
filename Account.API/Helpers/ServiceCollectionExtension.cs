@@ -4,6 +4,7 @@ using CERent.Account.Lib.Domain;
 using CERent.Account.Lib.Domain.Services;
 using CERent.Core.Lib.Settings;
 using CERent.Core.Lib.Utils;
+using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -67,8 +68,9 @@ namespace CERent.Account.API.Helpers
         public static void ConfigureAppSetting(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<JwtSetting>(options => configuration.GetSection("JwtSetting").Bind(options));
+            services.Configure<RabbitMqSetting>(options => configuration.GetSection("RabbitMq").Bind(options));
+            //services.Configure<JwtSetting>(options => configuration.GetSection("JwtSetting").Bind(options));
         }
-
 
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
@@ -79,6 +81,30 @@ namespace CERent.Account.API.Helpers
                 options => options.UseInMemoryDatabase(databaseName: "AccountDbContext"));
         }
 
+        public static void ConfigureRabbitMq(this IServiceCollection services, IConfiguration configuration)
+        {
+            var _rabbitMqSetting = configuration.GetSection("RabbitMq").Get<RabbitMqSetting>();
 
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<EventConsumer>();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host($"{_rabbitMqSetting.Url}/{_rabbitMqSetting.VirtualHost}/", hst =>
+                    {
+                        hst.Username(_rabbitMqSetting.UserName);
+                        hst.Password(_rabbitMqSetting.Password);
+                    });
+
+                    cfg.ReceiveEndpoint("event-listener", e =>
+                    {
+                        e.ConfigureConsumer<EventConsumer>(context);
+                    });
+                });
+            });
+
+            services.AddMassTransitHostedService();
+        }
     }
 }
