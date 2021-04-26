@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Domain\Entities\RentalFee.cs" />
+    <Compile Remove="Domain\Enums\RentalFeeType.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Models\" />
+    <Folder Include="Domain\EntityConfig\" />
+    <Folder Include="Domain\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CERent.Core.Lib\CERent.Core.Lib.csproj" />
+  </ItemGroup>
+
+</Project>
