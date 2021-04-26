@@ -33,7 +33,7 @@ namespace CERent.Order.Lib.Application.Services
             }
             else
             {
-                price = (_rentalFeeSetting.PremiumDaily * 3) + (_rentalFeeSetting.RegularDaily * (noOfDays - 3))
+                price = (_rentalFeeSetting.PremiumDaily * 3) + (_rentalFeeSetting.RegularDaily * (noOfDays - 3));
             }
             
             return price;
