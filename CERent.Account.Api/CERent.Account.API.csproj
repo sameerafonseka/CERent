@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Account.Lib\CERent.Account.Lib.csproj" />
+    <ProjectReference Include="..\CERent.Account.Lib\CERent.Account.Lib.csproj" />
   </ItemGroup>
 
 
