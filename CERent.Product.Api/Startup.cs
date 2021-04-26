@@ -31,7 +31,7 @@ namespace CERent.Product.Api
 
             services.AddControllers();
 
-            base.CommonConfigureServices("Account", services);
+            base.CommonConfigureServices("Product", services);
 
             services.ConfigureDbContext(Configuration);
 

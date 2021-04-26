@@ -12,5 +12,7 @@ namespace CERent.Product.Lib.Domain.Entities
         public EquipmentType Type { get; set; }
 
         public string TranslationKey { get; set; }
+
+        public string PictureUrl { get; set; }
     }
 }
