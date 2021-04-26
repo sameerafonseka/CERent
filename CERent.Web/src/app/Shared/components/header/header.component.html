@@ -1,0 +1,75 @@
+<header class="header-4" *ngIf="false">
+  <div class="branding">
+    <a href="javascript://" class="nav-link">
+      <clr-icon class="alert-icon" shape="network-globe" style="color: white; opacity: 0.9;"></clr-icon> 
+      <span class="title">CE-Rent</span>
+    </a>
+  </div>
+  <div class="header-actions">
+    <clr-dropdown [clrCloseMenuOnItemClick]="true">
+      <button clrDropdownTrigger aria-label="Dropdown">
+        <clr-icon shape="user" size="24" style="color: white;"></clr-icon>
+        <!-- <clr-icon shape="caret" direction="down"></clr-icon> -->
+        <span class="nav-text">username</span>
+      </button>
+      <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+        <div aria-label="Dropdown header Action 1" clrDropdownItem>Profile</div>
+        <div aria-label="Dropdown header Action 2" clrDropdownItem>Log out</div>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+
+  
+  </div>
+</header>
+
+<clr-header class="header-4">
+  <div class="branding">
+    <a href="javascript://" class="nav-link">
+      <clr-icon class="alert-icon" shape="network-globe" style="color: white; opacity: 0.9;"></clr-icon> 
+      <span class="title">CE-Rent</span>
+    </a>
+  </div>
+  <!-- designate primary navigation from the header-nav container -->
+ <!--  <div class="header-nav" [clr-nav-level]="1">
+    <a class="nav-link"><span class="nav-text">Home</span></a>
+    <a class="nav-link"><span class="nav-text">About</span></a>
+  </div> -->
+
+  <div class="header-actions" *ngIf="false">
+    <clr-dropdown [clrCloseMenuOnItemClick]="true">
+      <button clrDropdownTrigger aria-label="Dropdown">
+        <clr-icon shape="user" size="24" style="color: white;"></clr-icon>
+        <span class="nav-text">SFONSEKA</span>
+      </button>
+      <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+        <div aria-label="Dropdown header Action 1" clrDropdownItem>Profile</div>
+        <div aria-label="Dropdown header Action 2" clrDropdownItem>Log out</div>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+  </div>
+
+  <div class="header-actions">
+    <clr-dropdown [clrCloseMenuOnItemClick]="true">
+      <button clrDropdownTrigger aria-label="Dropdown">
+        <clr-icon shape="user" size="24" style="color: white;"></clr-icon>
+        <span class="nav-text"></span>
+      </button>
+      <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+        <div aria-label="Dropdown header Action 1" clrDropdownItem>Login</div>
+        <div aria-label="Dropdown header Action 2" clrDropdownItem>Register</div>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+
+    <a href="javascript://" class="nav-link nav-icon" aria-label="settings" style="margin-top: 2px;">
+      <clr-icon shape="shopping-cart" size="24" style="color: white;"></clr-icon>
+      <div class="badge  badge-info" style="position: relative; top: -12px; right: -7px;">1</div>
+    </a>
+    
+  </div>
+
+</clr-header>
+<!-- <nav class="subnav" [clr-nav-level]="1">
+    <a class="nav-link"><span class="nav-text">Home</span></a>
+  <a class="nav-link"><span class="nav-text">About</span></a>
+</nav> -->
+
