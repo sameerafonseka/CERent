@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
@@ -12,6 +13,13 @@ namespace CERent.Core.Lib.Api
 {
     public abstract class BaseStartup
     {
+        public IConfiguration Configuration { get; }
+
+        public BaseStartup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         public void CommonConfigureServices(string apiName, IServiceCollection services)
         {
             services.AddApiVersioning(o =>

@@ -1,4 +1,5 @@
 ﻿using CERent.Account.Lib.Domain;
+using CERent.Core.Lib.Model;
 using CERent.Core.Lib.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CERent.Account.API.Helpers
 {
-    public class DataGenerator
+    public static class DataGenerator
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {

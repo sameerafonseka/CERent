@@ -49,10 +49,13 @@ namespace CERent.Account.API.Helpers
                     }, out SecurityToken validatedToken);
 
                     var jwtToken = (JwtSecurityToken) validatedToken;
+
                     var email = jwtToken.Claims.FirstOrDefault(x => x.Type == "Email")?.Value;
+                    var userType = jwtToken.Claims.FirstOrDefault(x => x.Type == "UserType")?.Value;
 
                     if (!String.IsNullOrWhiteSpace(email))
                     {
+                        //context.Items["User"] = await _loginService.Authenticate(new AuthenticateQuery { Email = email });
                         context.Items["User"] = await _loginService.Authenticate(new AuthenticateQuery { Email = email });
                     }
                 }

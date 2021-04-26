@@ -5,12 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\Enums\UserType.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CERent.Core.Lib\CERent.Core.Lib.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Application\Models\Commands\" />
     <Folder Include="Application\Models\Query\" />
+    <Folder Include="Domain\Enums\" />
   </ItemGroup>
 
   <ItemGroup>

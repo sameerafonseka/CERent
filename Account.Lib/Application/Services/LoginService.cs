@@ -1,6 +1,7 @@
 ﻿using CERent.Account.Lib.Application.Models;
 using CERent.Account.Lib.Domain.Models;
 using CERent.Account.Lib.Domain.Services;
+using CERent.Core.Lib.Services;
 using CERent.Core.Lib.Settings;
 using CERent.Core.Lib.Utils;
 using Microsoft.Extensions.Caching.Distributed;
@@ -23,17 +24,20 @@ namespace CERent.Account.Lib.Application.Services
         private readonly IUserService _userService = null;
         private readonly JwtSetting _jwtSetting = null;
         private readonly ICacheProvider _cacheProvider = null;
-
+        private readonly IJwtTokenService _jwtTokenService = null;
+         
         public LoginService(ILogger<LoginService> logger,
             IUserService userService,
             IOptions<JwtSetting> jwtSetting,
-            ICacheProvider cacheProvider
+            ICacheProvider cacheProvider,
+            IJwtTokenService jwtTokenService
             )
         {
             _logger = logger;
             _userService = userService;
             _jwtSetting = jwtSetting?.Value;
             _cacheProvider = cacheProvider;
+            _jwtTokenService = jwtTokenService;
         }
 
         public async Task<LoginResult> Login(LoginQuery loginQuery)
@@ -47,7 +51,7 @@ namespace CERent.Account.Lib.Application.Services
                 loginResult.IsValidUser = true;
                 loginResult.UserId = user.Id;
                 loginResult.FullName = $"{user.FirstName} {user.LastName}";
-                loginResult.Token = GenerateToken(user.Email);
+                loginResult.Token = _jwtTokenService.GenerateToken(user.Email, user.UserType);
 
                 //move this to a queue
                 await _cacheProvider.SetCache($"User_{user.Email}", user);
@@ -73,26 +77,6 @@ namespace CERent.Account.Lib.Application.Services
             };
 
             return authenticateResult;
-        }
-
-        private string GenerateToken(string email)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSetting.SecretKey);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
-                {
-                        new Claim("Email", email)
-                }),
-                Expires = DateTime.UtcNow.AddHours(4),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-            string token = tokenHandler.WriteToken(securityToken);
-
-            return token;
         }
     }
 }

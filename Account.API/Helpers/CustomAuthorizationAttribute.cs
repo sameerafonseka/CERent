@@ -1,4 +1,5 @@
 ﻿using CERent.Account.Lib.Application.Models;
+using CERent.Core.Lib.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

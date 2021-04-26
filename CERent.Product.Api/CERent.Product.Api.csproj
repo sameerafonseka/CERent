@@ -5,26 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Helpers\AuthorizeAttribute.cs" />
-    <Compile Remove="Helpers\CustomAuthorizationRequirement.cs" />
-    <Compile Remove="Helpers\CustomAuthorizeHandler.cs" />
-    <Compile Remove="Helpers\JwtMiddleware.cs" />
-    <Compile Remove="Helpers\LoggingMiddleware.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MassTransit" Version="7.1.8" />
     <PackageReference Include="MassTransit.AspNetCore" Version="7.1.8" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="7.1.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Account.Lib\CERent.Account.Lib.csproj" />
+    <ProjectReference Include="..\CERent.Core.Lib\CERent.Core.Lib.csproj" />
+    <ProjectReference Include="..\CERent.Product.Lib\CERent.Product.Lib.csproj" />
   </ItemGroup>
-
 
 </Project>

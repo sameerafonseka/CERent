@@ -1,6 +1,7 @@
 ﻿using CERent.Account.API.Helpers;
 using CERent.Account.Lib.Application.Models;
 using CERent.Account.Lib.Application.Services;
+using CERent.Core.Lib.Model;
 using CERent.Core.Lib.QueueModels;
 using CERent.Core.Lib.Settings;
 using MassTransit;
