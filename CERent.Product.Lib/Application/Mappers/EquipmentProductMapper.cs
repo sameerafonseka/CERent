@@ -9,12 +9,12 @@ namespace CERent.Product.Lib.Application.Mappers
 {
     internal static class EquipmentProductMapper
     {
-        public static Models.ProductViewModel Map(this Equipment equipment)
+        public static Models.ProductDto Map(this Equipment equipment)
         {
             if (equipment == null)
                 return null;
 
-            var p = new Models.ProductViewModel();
+            var p = new Models.ProductDto();
             p.Id = equipment.Id;
             p.Name = equipment.Name;
             p.TranslationKey = equipment.TranslationKey;
@@ -25,7 +25,7 @@ namespace CERent.Product.Lib.Application.Mappers
             return p;
         }
 
-        public static IList<Models.ProductViewModel> Map(this IList<Equipment> equipment)
+        public static IList<Models.ProductDto> Map(this IList<Equipment> equipment)
         {
             return equipment.Select(x => x?.Map()).ToList();
         }

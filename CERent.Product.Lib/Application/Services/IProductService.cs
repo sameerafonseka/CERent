@@ -6,6 +6,6 @@ namespace CERent.Product.Lib.Application.Services
 {
     public interface IProductService
     {
-        Task<IList<ProductViewModel>> GetProducts();
+        Task<IList<ProductDto>> GetProducts();
     }
 }

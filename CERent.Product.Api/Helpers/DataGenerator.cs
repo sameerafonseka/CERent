@@ -36,7 +36,7 @@ namespace CERent.Product.Api.Helpers
                      {
                          Id = 2,
                          Name = "KamAZ truck",
-                         Type = EquipmentType.Heavy,
+                         Type = EquipmentType.Regular,
                          CreatedBy = "Admin",
                          CreatedDate = DateTimeOffset.Now,
                          ModifiedBy = "Admin",
@@ -60,7 +60,7 @@ namespace CERent.Product.Api.Helpers
                      {
                          Id = 4,
                          Name = "Volvo steamroller",
-                         Type = EquipmentType.Heavy,
+                         Type = EquipmentType.Regular,
                          CreatedBy = "Admin",
                          CreatedDate = DateTimeOffset.Now,
                          ModifiedBy = "Admin",
@@ -72,7 +72,7 @@ namespace CERent.Product.Api.Helpers
                      {
                          Id = 5,
                          Name = "Bosch jackhammer",
-                         Type = EquipmentType.Heavy,
+                         Type = EquipmentType.Specialized,
                          CreatedBy = "Admin",
                          CreatedDate = DateTimeOffset.Now,
                          ModifiedBy = "Admin",

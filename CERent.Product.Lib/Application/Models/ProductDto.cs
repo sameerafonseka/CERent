@@ -4,12 +4,7 @@ using System.Text;
 
 namespace CERent.Product.Lib.Application.Models
 {
-    public class ProductsViewModel
-    {
-        public IList<ProductViewModel> Product { get; set; }
-    }
-
-    public class ProductViewModel
+    public class ProductDto
     {
         public int Id { get; set; }
 

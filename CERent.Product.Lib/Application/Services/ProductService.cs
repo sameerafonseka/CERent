@@ -24,7 +24,7 @@ namespace CERent.Product.Lib.Application.Services
             _equipmentService = equipmentService;
         }
 
-        public async Task<IList<ProductViewModel>> GetProducts()
+        public async Task<IList<ProductDto>> GetProducts()
         {
             var products = (await _equipmentService.GetAll()).Map();
             return products;

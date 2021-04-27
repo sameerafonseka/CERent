@@ -60,9 +60,9 @@
       </clr-dropdown-menu>
     </clr-dropdown>
 
-    <a href="javascript://" class="nav-link nav-icon" aria-label="settings" style="margin-top: 2px;">
+    <a href="javascript://" class="nav-link nav-icon" aria-label="settings" style="margin-top: 2px;" *ngIf="noOfItems > 0">
       <clr-icon shape="shopping-cart" size="24" style="color: white;"></clr-icon>
-      <div class="badge  badge-info" style="position: relative; top: -12px; right: -7px;">1</div>
+      <div class="badge  badge-info" style="position: relative; top: -12px; right: -7px;">{{noOfItems}}</div>
     </a>
     
   </div>

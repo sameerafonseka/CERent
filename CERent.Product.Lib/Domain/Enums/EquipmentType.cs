@@ -2,5 +2,5 @@
 {
     Heavy = 1,
     Regular = 2,
-    Specialized = 2
+    Specialized = 3
 }

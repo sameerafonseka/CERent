@@ -1,4 +1,4 @@
-export interface ProductViewModel {
+export interface ProductDto {
     id: number,
     name: string,
     type: string,

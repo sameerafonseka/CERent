@@ -14,7 +14,22 @@
         </p>
       </div>
       <div class="card-footer">
-        <a href="javascript:void(0)" class="btn btn-sm btn-link">Add to cart</a>
+        <div class="clr-row">
+          <div class="clr-col-6 text-left">
+            
+            <div class="clr-control-container">
+              <div class="clr-select-wrapper">
+                <select placeholder="Select Option" id="noOfDays" #selNoOfDays>
+                  <option *ngFor="let d of noOfDays" >{{d}}</option>
+                </select>
+              </div>
+            </div>
+            days
+          </div>
+          <div class="clr-col-6 text-right">
+             <a class="btn btn-sm btn-link" (click)="addToCart(product, selNoOfDays.value)">Add to cart</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
