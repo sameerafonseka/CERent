@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CERent.Product.Lib.Application.Services
@@ -23,13 +24,10 @@ namespace CERent.Product.Lib.Application.Services
             _equipmentService = equipmentService;
         }
 
-        public async Task<ProductsViewModel> GetProducts()
+        public async Task<IList<ProductViewModel>> GetProducts()
         {
-            var result = new ProductsViewModel();
-            
-            result.Product = (await _equipmentService.GetAll()).Map();
-
-            return result;
+            var products = (await _equipmentService.GetAll()).Map();
+            return products;
         }
     }
 }

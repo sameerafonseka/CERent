@@ -1,16 +1,16 @@
 <app-product-listing-filter></app-product-listing-filter>
 
 <div class="clr-row">
-  <div class="clr-col-lg-3 clr-col-12" *ngFor="let xxx of productList">
+  <div class="clr-col-lg-3 clr-col-12" *ngFor="let product of productList">
     <div class="card">
       <div class="card-block">
-        <h4 class="card-title" style="margin-bottom: 0px;">Caterpillar bulldozer</h4>
-        <h5 class="card-title">Heavy</h5>
+        <h4 class="card-title" style="margin-bottom: 0px;">{{product.name}}</h4>
+        <h5 class="card-title">{{product.type}}</h5>
         <div class="card-img">
           <img src="https://via.placeholder.com/350x150?text=Image" />
         </div>
         <p class="card-text">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+          {{product.description | slice:0:140}}
         </p>
       </div>
       <div class="card-footer">

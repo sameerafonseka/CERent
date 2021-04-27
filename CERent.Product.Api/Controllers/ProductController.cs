@@ -1,4 +1,5 @@
-﻿using CERent.Product.Lib.Application.Services;
+﻿using CERent.Core.Lib.Api;
+using CERent.Product.Lib.Application.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,17 +27,17 @@ namespace CERent.Product.Api.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetProducts()
+        public async Task<JsonResponse> GetProducts()
         {
             try
             {
                 var result = await _productService.GetProducts();
-                return Ok(result);
+                return JsonResponse.Success(result);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return JsonResponse.Error(ex.Message);
             }
         }
     }

@@ -20,6 +20,7 @@ namespace CERent.Product.Lib.Application.Mappers
             p.TranslationKey = equipment.TranslationKey;
             p.Type = equipment.Type.ToString("f");
             p.ImageUrl = equipment.PictureUrl;
+            p.Description = equipment.Description;
 
             return p;
         }

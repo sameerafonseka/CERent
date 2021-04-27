@@ -66,6 +66,8 @@ namespace CERent.Product.Api
                  }
              });
 
+            app.UseCors("CorsPolicy");
+
             app.UseAuthentication();
             app.UseAuthorization();
 

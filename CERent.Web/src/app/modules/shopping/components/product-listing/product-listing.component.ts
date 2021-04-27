@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductViewModel } from '../../models/ProductViewModel';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-listing',
@@ -7,21 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListingComponent implements OnInit {
 
-  public productList : string[] = [];
+  public productList : ProductViewModel[] = [];
 
-  constructor() { 
-    this.productList.push("xxxx");
-    this.productList.push("yyy");
-    this.productList.push("yyy");
-    this.productList.push("yyy");
-    this.productList.push("yyy");
-    this.productList.push("yyy");
-    this.productList.push("yyy");
+  constructor(private _productService: ProductService) { 
+   }
+
+   async ngOnInit() {
+     await this.populateProducts();
   }
 
-  ngOnInit() {
-
-
+  async populateProducts(){
+    this.productList = await this._productService.getProducts();
   }
 
 }
