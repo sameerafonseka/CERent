@@ -20,7 +20,7 @@ namespace CERent.Product.Api
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                
+
                 DataGenerator.Initialize(services);
             }
 

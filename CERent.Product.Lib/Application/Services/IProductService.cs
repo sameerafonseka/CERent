@@ -5,6 +5,6 @@ namespace CERent.Product.Lib.Application.Services
 {
     public interface IProductService
     {
-        Task<ProductViewModel> GetProducts();
+        Task<ProductsViewModel> GetProducts();
     }
 }

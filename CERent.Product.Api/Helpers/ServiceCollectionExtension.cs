@@ -2,7 +2,9 @@
 using CERent.Core.Lib.Services;
 using CERent.Core.Lib.Settings;
 using CERent.Core.Lib.Utils;
+using CERent.Product.Lib.Application.Services;
 using CERent.Product.Lib.Domain;
+using CERent.Product.Lib.Domain.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -27,16 +29,17 @@ namespace CERent.Product.Api.Helpers
         public static void ConfigureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             //Application services
-            //services.TryAddTransient<ILoginService, LoginService>();
+            services.TryAddScoped<IProductService, ProductService>();
 
             //Domain services
-            //services.TryAddTransient<IUserService, UserService>();
+            services.TryAddScoped<IEquipmentService, EquipmentService>();
+            services.TryAddScoped<IInventoryService, InventoryService>();
 
             //Other
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.TryAddTransient<IEncryptionUtil, EncryptionUtil>();
-            services.TryAddTransient<ICacheProvider, CacheProvider>();
-            services.TryAddTransient<IJwtTokenService, JwtTokenService>();
+            services.TryAddScoped<ICacheProvider, CacheProvider>();
+            services.TryAddScoped<IJwtTokenService, JwtTokenService>();
 
 
             services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());

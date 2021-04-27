@@ -25,7 +25,7 @@ namespace CERent.Product.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Product")]
+        [Route("")]
         public async Task<IActionResult> GetProducts()
         {
             try

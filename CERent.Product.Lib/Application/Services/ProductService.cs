@@ -23,9 +23,9 @@ namespace CERent.Product.Lib.Application.Services
             _equipmentService = equipmentService;
         }
 
-        public async Task<ProductViewModel> GetProducts()
+        public async Task<ProductsViewModel> GetProducts()
         {
-            var result = new ProductViewModel();
+            var result = new ProductsViewModel();
             
             result.Product = (await _equipmentService.GetAll()).Map();
 

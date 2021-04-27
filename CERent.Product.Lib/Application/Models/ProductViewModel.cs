@@ -4,22 +4,22 @@ using System.Text;
 
 namespace CERent.Product.Lib.Application.Models
 {
-    public class ProductViewModel
+    public class ProductsViewModel
     {
-        public IList<Product> Product { get; set; }
+        public IList<ProductViewModel> Product { get; set; }
     }
 
-    public class Product
+    public class ProductViewModel
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
 
-        public string ProductName { get; set; }
+        public string Name { get; set; }
 
-        public string ProductType { get; set; }
+        public string Type { get; set; }
 
-        public string ProductTranslationKey { get; set; }
+        public string TranslationKey { get; set; }
 
-        public string ProductUrl { get; set; }
+        public string ImageUrl { get; set; }
     }
 
 }
