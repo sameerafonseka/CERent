@@ -1,5 +1,7 @@
 ﻿using CERent.Core.Lib.Model;
+using CERent.Core.Lib.Services;
 using CERent.Core.Lib.Settings;
+using CERent.Core.Lib.Utils;
 using CERent.Product.Lib.Domain;
 using MassTransit;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +33,11 @@ namespace CERent.Product.Api.Helpers
             //services.TryAddTransient<IUserService, UserService>();
 
             //Other
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.TryAddTransient<IEncryptionUtil, EncryptionUtil>();
-            //services.TryAddTransient<ICacheProvider, CacheProvider>();
+            services.TryAddTransient<ICacheProvider, CacheProvider>();
+            services.TryAddTransient<IJwtTokenService, JwtTokenService>();
+
 
             services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
             services.AddStackExchangeRedisCache(options =>

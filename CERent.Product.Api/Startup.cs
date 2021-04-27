@@ -1,8 +1,10 @@
 using CERent.Core.Lib.Api;
+using CERent.Core.Lib.Api.Middleware;
 using CERent.Product.Api.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,21 +41,36 @@ namespace CERent.Product.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<JwtMiddleware>();
+            app.UseMiddleware<LoggingMiddleware>();
+            app.UseMiddleware<CommonHeadersMiddleware>();
+
             app.UseRouting();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(
+             options =>
+             {
+                 foreach (var description in provider.ApiVersionDescriptions)
+                 {
+                     options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                 }
+             });
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }

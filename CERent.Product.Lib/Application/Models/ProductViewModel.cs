@@ -6,12 +6,12 @@ namespace CERent.Product.Lib.Application.Models
 {
     public class ProductViewModel
     {
-        public List<Product> Product { get; set; }
+        public IList<Product> Product { get; set; }
     }
 
     public class Product
     {
-        public string ProductId { get; set; }
+        public int ProductId { get; set; }
 
         public string ProductName { get; set; }
 

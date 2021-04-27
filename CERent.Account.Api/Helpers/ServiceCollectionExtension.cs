@@ -2,6 +2,7 @@
 using CERent.Account.Lib.Application.Services;
 using CERent.Account.Lib.Domain;
 using CERent.Account.Lib.Domain.Services;
+using CERent.Core.Lib.Services;
 using CERent.Core.Lib.Settings;
 using CERent.Core.Lib.Utils;
 using MassTransit;
@@ -37,6 +38,7 @@ namespace CERent.Account.API.Helpers
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddTransient<IEncryptionUtil, EncryptionUtil>();
             services.TryAddTransient<ICacheProvider, CacheProvider>();
+            services.TryAddTransient<IJwtTokenService, JwtTokenService>();
             
             services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
             services.AddStackExchangeRedisCache(options =>

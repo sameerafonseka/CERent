@@ -9,6 +9,8 @@ namespace CERent.Product.Lib.Domain.Entities
     {
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public EquipmentType Type { get; set; }
 
         public string TranslationKey { get; set; }
