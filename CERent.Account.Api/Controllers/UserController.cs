@@ -15,9 +15,7 @@ using System.Threading.Tasks;
 
 namespace CERent.Account.API.Controllers
 {
-    //[Route("api/[controller]/[action]")]
     [ApiController]
-    //[ApiExplorerSettings(IgnoreApi = false, GroupName = nameof(EmailController))]
     [ApiVersion("1")]
     [Route("/api/v{version:apiVersion}/[controller]")]
     [CustomAuthorization]
@@ -58,55 +56,55 @@ namespace CERent.Account.API.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("Buy")]
-        [CustomAuthorization(UserType.Buyer)]
-        public async Task<IActionResult> Buy()
-        {
-            try
-            {
-                //_publishEndpoint.Publish<ILoginNotification>()
+        //[HttpPost]
+        //[Route("Buy")]
+        //[CustomAuthorization(UserType.Buyer)]
+        //public async Task<IActionResult> Buy()
+        //{
+        //    try
+        //    {
+        //        //_publishEndpoint.Publish<ILoginNotification>()
 
-                await _publishEndpoint.Publish<LoginNotification>(new
-                {
-                    Email = DateTime.Now.ToString("yyy-MM-dd HH:mm:ss")
-                }); ;
+        //        await _publishEndpoint.Publish<LoginNotification>(new
+        //        {
+        //            Email = DateTime.Now.ToString("yyy-MM-dd HH:mm:ss")
+        //        }); ;
             
 
-                //var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
-                //{
-                //    cfg.Host(_rabbitMqSetting.Url, 5672, "my-rabbit", hst =>
-                //    {
-                //        hst.Username(_rabbitMqSetting.UserName);
-                //        hst.Password(_rabbitMqSetting.Password);
-                //    });
+        //        //var bus = Bus.Factory.CreateUsingRabbitMq(cfg =>
+        //        //{
+        //        //    cfg.Host(_rabbitMqSetting.Url, 5672, "my-rabbit", hst =>
+        //        //    {
+        //        //        hst.Username(_rabbitMqSetting.UserName);
+        //        //        hst.Password(_rabbitMqSetting.Password);
+        //        //    });
 
-                //    //cfg.Host(_rabbitMqSetting.Url, 5672,  hst =>
-                //    //{
-                //    //    hst.Username(_rabbitMqSetting.UserName);
-                //    //    hst.Password(_rabbitMqSetting.Password);
-                //    //});
+        //        //    //cfg.Host(_rabbitMqSetting.Url, 5672,  hst =>
+        //        //    //{
+        //        //    //    hst.Username(_rabbitMqSetting.UserName);
+        //        //    //    hst.Password(_rabbitMqSetting.Password);
+        //        //    //});
 
 
 
-                //    //registrationAction?.Invoke(cfg, host);
-                //});
+        //        //    //registrationAction?.Invoke(cfg, host);
+        //        //});
 
-                //var sendToUri = new Uri($"{_rabbitMqSetting.Url}{_rabbitMqSetting.LoginQueue}");
-                //var endPoint = await bus.GetSendEndpoint(sendToUri);
+        //        //var sendToUri = new Uri($"{_rabbitMqSetting.Url}{_rabbitMqSetting.LoginQueue}");
+        //        //var endPoint = await bus.GetSendEndpoint(sendToUri);
 
-                //await endPoint.Send<ILoginNotification>(new
-                //{
-                //    Email = "test@test.com"
-                //});
+        //        //await endPoint.Send<ILoginNotification>(new
+        //        //{
+        //        //    Email = "test@test.com"
+        //        //});
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message, ex);
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-        }
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex.Message, ex);
+        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //    }
+        //}
     }
 }
